@@ -5,13 +5,13 @@ import {
   calculateEMA,
   calculateATR,
   calculateSupportResistance,
-} from "./market";
-import { runAIVoting, type MarketContext } from "./aiVoting";
+} from "./market.js";
+import { runAIVoting, type MarketContext } from "./aiVoting.js";
 import {
   runMathAnalysis,
   calculateFibSLTP,
   type MathAnalysisResult,
-} from "./mathIndicators";
+} from "./mathIndicators.js";
 import { getDb } from "../queries/connection.js";
 import { signals, aiVotes } from "../../db/schema.js";
 
