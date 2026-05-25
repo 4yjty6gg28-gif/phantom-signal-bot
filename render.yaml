@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: phantom-signal-bot
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false  # Set manually in Render dashboard
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false  # Set manually in Render dashboard
+      - key: KIMI_API_KEY
+        sync: false  # Optional
+      - key: OPENROUTER_API_KEY
+        sync: false  # Optional
