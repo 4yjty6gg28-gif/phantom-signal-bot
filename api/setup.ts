@@ -1,17 +1,19 @@
-// Vercel Serverless Function - Telegram webhook setup
-import { getSetting } from "./services/settings.js";
+// Vercel Serverless Function - Set Telegram webhook
+// NO DATABASE needed - uses env var only
 
 export default async function handler(request: Request): Promise<Response> {
-  const token = process.env.TELEGRAM_BOT_TOKEN || (await getSetting("TELEGRAM_BOT_TOKEN")) || "";
+  const token = process.env.TELEGRAM_BOT_TOKEN || "";
   
   if (!token) {
-    return new Response(JSON.stringify({ error: "TELEGRAM_BOT_TOKEN not set in environment variables" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({ 
+        error: "TELEGRAM_BOT_TOKEN not set",
+        fix: "Go to Vercel Dashboard > Settings > Environment Variables > Add TELEGRAM_BOT_TOKEN"
+      }), 
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
   }
 
-  // Get hostname from request
   const url = new URL(request.url);
   const hostname = url.hostname;
   const webhookUrl = `https://${hostname}/api/webhook`;
@@ -23,7 +25,11 @@ export default async function handler(request: Request): Promise<Response> {
     const data = (await res.json()) as any;
 
     return new Response(
-      JSON.stringify({ telegramOk: data.ok, webhookUrl, telegramResponse: data }, null, 2),
+      JSON.stringify({ 
+        success: data.ok,
+        webhookUrl,
+        telegramResponse: data 
+      }, null, 2),
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (err: any) {
