@@ -12,8 +12,8 @@ import {
   calculateFibSLTP,
   type MathAnalysisResult,
 } from "./mathIndicators";
-import { getDb } from "../queries/connection";
-import { signals, aiVotes } from "../../db/schema";
+import { getDb } from "../queries/connection.js";
+import { signals, aiVotes } from "../../db/schema.js";
 
 // ─── Types ───
 export interface SignalResult {

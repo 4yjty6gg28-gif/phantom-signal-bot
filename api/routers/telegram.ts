@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { createRouter, publicQuery } from "../middleware";
-import { getSetting } from "../services/settings";
+import { createRouter, publicQuery } from "../middleware.js";
+import { getSetting } from "../services/settings.js";
 
 export const telegramRouter = createRouter({
   setWebhook: publicQuery.query(async () => {

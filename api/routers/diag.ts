@@ -1,5 +1,5 @@
-import { createRouter, publicQuery } from "../middleware";
-import { getSetting } from "../services/settings";
+import { createRouter, publicQuery } from "../middleware.js";
+import { getSetting } from "../services/settings.js";
 
 export const diagRouter = createRouter({
   full: publicQuery.query(async () => {

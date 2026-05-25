@@ -1,8 +1,8 @@
-import { createRouter, publicQuery } from "./middleware";
-import { signalRouter } from "./routers/signal";
-import { settingsRouter } from "./routers/settings";
-import { telegramRouter } from "./routers/telegram";
-import { diagRouter } from "./routers/diag";
+import { createRouter, publicQuery } from "./middleware.js";
+import { signalRouter } from "./routers/signal.js";
+import { settingsRouter } from "./routers/settings.js";
+import { telegramRouter } from "./routers/telegram.js";
+import { diagRouter } from "./routers/diag.js";
 
 export const appRouter = createRouter({
   ping: publicQuery.query(() => ({ ok: true, ts: Date.now() })),

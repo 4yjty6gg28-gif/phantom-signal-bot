@@ -2,12 +2,12 @@ import { Hono } from "hono";
 import { bodyLimit } from "hono/body-limit";
 import type { HttpBindings } from "@hono/node-server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
-import { appRouter } from "./router";
-import { createContext } from "./context";
-import { env } from "./lib/env";
-import { initBot, getBot, autoSetWebhook } from "./telegram/bot";
-import { getBotStatus } from "./telegram/bot";
-import { getSetting } from "./services/settings";
+import { appRouter } from "./router.js";
+import { createContext } from "./context.js";
+import { env } from "./lib/env.js";
+import { initBot, getBot, autoSetWebhook } from "./telegram/bot.js";
+import { getBotStatus } from "./telegram/bot.js";
+import { getSetting } from "./services/settings.js";
 
 const app = new Hono<{ Bindings: HttpBindings }>();
 
@@ -140,7 +140,7 @@ export default app;
 
 if (env.isProduction) {
   const { serve } = await import("@hono/node-server");
-  const { serveStaticFiles } = await import("./lib/vite");
+  const { serveStaticFiles } = await import("./lib/vite.js");
   serveStaticFiles(app);
 
   const port = parseInt(process.env.PORT || "3000");

@@ -1,18 +1,16 @@
 import { drizzle } from "drizzle-orm/mysql2";
-import { env } from "../lib/env";
-import * as schema from "@db/schema";
-import * as relations from "@db/relations";
+import { createConnection } from "mysql2/promise";
+import { env } from "../lib/env.js";
+import * as schema from "../../db/schema.js";
+import * as relations from "../../db/relations.js";
 
-const fullSchema = { ...schema, ...relations };
+let connection: ReturnType<typeof createConnection> | undefined;
 
-let instance: ReturnType<typeof drizzle<typeof fullSchema>>;
-
-export function getDb() {
-  if (!instance) {
-    instance = drizzle(env.databaseUrl, {
-      mode: "planetscale",
-      schema: fullSchema,
-    });
+export async function getDb() {
+  if (!connection) {
+    connection = createConnection(env.DATABASE_URL);
   }
-  return instance;
+  return drizzle(await connection, { schema: { ...schema, ...relations }, mode: "default" });
 }
+
+export type Db = Awaited<ReturnType<typeof getDb>>;

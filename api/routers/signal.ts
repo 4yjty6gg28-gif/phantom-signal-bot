@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { createRouter, publicQuery } from "../middleware";
-import { generateSignal, getSignalHistory, getSignalStats } from "../services/signal";
+import { createRouter, publicQuery } from "../middleware.js";
+import { generateSignal, getSignalHistory, getSignalStats } from "../services/signal.js";
 
 export const signalRouter = createRouter({
   generate: publicQuery

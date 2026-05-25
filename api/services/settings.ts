@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
-import { getDb } from "../queries/connection";
-import { botSettings } from "../../db/schema";
+import { getDb } from "../queries/connection.js";
+import { botSettings } from "../../db/schema.js";
 
 export const DEFAULT_SETTINGS = {
   TELEGRAM_BOT_TOKEN: {
@@ -58,19 +58,27 @@ export async function getSettings() {
 }
 
 export async function getSetting(key: string): Promise<string | null> {
-  const db = getDb();
-  const result = await db
-    .select()
-    .from(botSettings)
-    .where(eq(botSettings.key, key))
-    .limit(1);
-
-  return result[0]?.value ?? null;
+  try {
+    const db = getDb();
+    const result = await db
+      .select()
+      .from(botSettings)
+      .where(eq(botSettings.key, key))
+      .limit(1);
+    return result[0]?.value ?? null;
+  } catch {
+    // If DB not available, check env
+    const envMap: Record<string, string | undefined> = {
+      TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
+      KIMI_API_KEY: process.env.KIMI_API_KEY,
+      OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY,
+    };
+    return envMap[key] ?? null;
+  }
 }
 
 export async function updateSetting(key: string, value: string) {
   const db = getDb();
-  // Upsert: insert if not exists, update if exists
   await db
     .insert(botSettings)
     .values({ key, value, description: "" })

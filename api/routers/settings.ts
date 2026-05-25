@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { createRouter, publicQuery } from "../middleware";
+import { createRouter, publicQuery } from "../middleware.js";
 import {
   getSettings,
   updateSetting,
   updateSettings,
-} from "../services/settings";
+} from "../services/settings.js";
 
 export const settingsRouter = createRouter({
   list: publicQuery.query(async () => {

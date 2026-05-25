@@ -14,7 +14,7 @@ export interface VotingResult {
   summary: string;
 }
 
-import type { MathAnalysisResult } from "./mathIndicators";
+import type { MathAnalysisResult } from "./mathIndicators.js";
 
 export interface MarketContext {
   symbol: string;

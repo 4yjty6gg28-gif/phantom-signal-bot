@@ -1,6 +1,6 @@
 import { Bot } from "grammy";
-import { generateSignal, formatSignalMessage, getSignalStats } from "../services/signal";
-import { getSetting } from "../services/settings";
+import { generateSignal, formatSignalMessage, getSignalStats } from "../services/signal.js";
+import { getSetting } from "../services/settings.js";
 
 // ─── Global bot instance ───
 let bot: Bot | null = null;
